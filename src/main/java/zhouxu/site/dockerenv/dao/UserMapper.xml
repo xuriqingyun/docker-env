@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="zhouxu.site.dockerenv.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="zhouxu.site.dockerenv.pojo.User" >
+    <id column="user_sid" property="userSid" jdbcType="BIGINT" />
+    <result column="user_type" property="userType" jdbcType="VARCHAR" />
+    <result column="user_code" property="userCode" jdbcType="VARCHAR" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="password64" property="password64" jdbcType="VARCHAR" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="BIGINT" />
+    <result column="project_id" property="projectId" jdbcType="BIGINT" />
+    <result column="org_sid" property="orgSid" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="error_count" property="errorCount" jdbcType="INTEGER" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="last_login_ip" property="lastLoginIp" jdbcType="VARCHAR" />
+    <result column="service_limit_quantity" property="serviceLimitQuantity" jdbcType="INTEGER" />
+    <result column="apply_reason" property="applyReason" jdbcType="VARCHAR" />
+    <result column="sms_max" property="smsMax" jdbcType="INTEGER" />
+    <result column="uuid" property="uuid" jdbcType="VARCHAR" />
+    <result column="skin_theme" property="skinTheme" jdbcType="VARCHAR" />
+    <result column="auth_id" property="authId" jdbcType="VARCHAR" />
+    <result column="auth_type" property="authType" jdbcType="VARCHAR" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="created_dt" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="updated_dt" property="updatedDt" jdbcType="TIMESTAMP" />
+    <result column="version" property="version" jdbcType="BIGINT" />
+    <result column="org_create_quota" property="orgCreateQuota" jdbcType="INTEGER" />
+    <result column="org_join_quota" property="orgJoinQuota" jdbcType="INTEGER" />
+    <result column="open_id" property="openId" jdbcType="VARCHAR" />
+    <result column="avatar_url" property="avatarUrl" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="wechat_name" property="wechatName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_sid, user_type, user_code, account, password, password64, real_name, sex, email, 
+    mobile, title, company_id, project_id, org_sid, status, remark, error_count, last_login_time, 
+    last_login_ip, service_limit_quantity, apply_reason, sms_max, uuid, skin_theme, auth_id, 
+    auth_type, created_by, created_dt, updated_by, updated_dt, version, org_create_quota, 
+    org_join_quota, open_id, avatar_url, province, city, country, wechat_name
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="zhouxu.site.dockerenv.pojo.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from sys_m_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_m_user
+    where user_sid = #{userSid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_m_user
+    where user_sid = #{userSid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="zhouxu.site.dockerenv.pojo.UserExample" >
+    delete from sys_m_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="zhouxu.site.dockerenv.pojo.User" >
+    insert into sys_m_user (user_sid, user_type, user_code, 
+      account, password, password64, 
+      real_name, sex, email, 
+      mobile, title, company_id, 
+      project_id, org_sid, status, 
+      remark, error_count, last_login_time, 
+      last_login_ip, service_limit_quantity, apply_reason, 
+      sms_max, uuid, skin_theme, 
+      auth_id, auth_type, created_by, 
+      created_dt, updated_by, updated_dt, 
+      version, org_create_quota, org_join_quota, 
+      open_id, avatar_url, province, 
+      city, country, wechat_name
+      )
+    values (#{userSid,jdbcType=BIGINT}, #{userType,jdbcType=VARCHAR}, #{userCode,jdbcType=VARCHAR}, 
+      #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{password64,jdbcType=VARCHAR}, 
+      #{realName,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{companyId,jdbcType=BIGINT}, 
+      #{projectId,jdbcType=BIGINT}, #{orgSid,jdbcType=BIGINT}, #{status,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{errorCount,jdbcType=INTEGER}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
+      #{lastLoginIp,jdbcType=VARCHAR}, #{serviceLimitQuantity,jdbcType=INTEGER}, #{applyReason,jdbcType=VARCHAR}, 
+      #{smsMax,jdbcType=INTEGER}, #{uuid,jdbcType=VARCHAR}, #{skinTheme,jdbcType=VARCHAR}, 
+      #{authId,jdbcType=VARCHAR}, #{authType,jdbcType=VARCHAR}, #{createdBy,jdbcType=VARCHAR}, 
+      #{createdDt,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}, #{updatedDt,jdbcType=TIMESTAMP}, 
+      #{version,jdbcType=BIGINT}, #{orgCreateQuota,jdbcType=INTEGER}, #{orgJoinQuota,jdbcType=INTEGER}, 
+      #{openId,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{wechatName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="zhouxu.site.dockerenv.pojo.User" >
+    insert into sys_m_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userSid != null" >
+        user_sid,
+      </if>
+      <if test="userType != null" >
+        user_type,
+      </if>
+      <if test="userCode != null" >
+        user_code,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="password64 != null" >
+        password64,
+      </if>
+      <if test="realName != null" >
+        real_name,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="projectId != null" >
+        project_id,
+      </if>
+      <if test="orgSid != null" >
+        org_sid,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="errorCount != null" >
+        error_count,
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time,
+      </if>
+      <if test="lastLoginIp != null" >
+        last_login_ip,
+      </if>
+      <if test="serviceLimitQuantity != null" >
+        service_limit_quantity,
+      </if>
+      <if test="applyReason != null" >
+        apply_reason,
+      </if>
+      <if test="smsMax != null" >
+        sms_max,
+      </if>
+      <if test="uuid != null" >
+        uuid,
+      </if>
+      <if test="skinTheme != null" >
+        skin_theme,
+      </if>
+      <if test="authId != null" >
+        auth_id,
+      </if>
+      <if test="authType != null" >
+        auth_type,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="createdDt != null" >
+        created_dt,
+      </if>
+      <if test="updatedBy != null" >
+        updated_by,
+      </if>
+      <if test="updatedDt != null" >
+        updated_dt,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="orgCreateQuota != null" >
+        org_create_quota,
+      </if>
+      <if test="orgJoinQuota != null" >
+        org_join_quota,
+      </if>
+      <if test="openId != null" >
+        open_id,
+      </if>
+      <if test="avatarUrl != null" >
+        avatar_url,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="wechatName != null" >
+        wechat_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userSid != null" >
+        #{userSid,jdbcType=BIGINT},
+      </if>
+      <if test="userType != null" >
+        #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="userCode != null" >
+        #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="password64 != null" >
+        #{password64,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="orgSid != null" >
+        #{orgSid,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="errorCount != null" >
+        #{errorCount,jdbcType=INTEGER},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginIp != null" >
+        #{lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceLimitQuantity != null" >
+        #{serviceLimitQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="applyReason != null" >
+        #{applyReason,jdbcType=VARCHAR},
+      </if>
+      <if test="smsMax != null" >
+        #{smsMax,jdbcType=INTEGER},
+      </if>
+      <if test="uuid != null" >
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="skinTheme != null" >
+        #{skinTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="authId != null" >
+        #{authId,jdbcType=VARCHAR},
+      </if>
+      <if test="authType != null" >
+        #{authType,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=BIGINT},
+      </if>
+      <if test="orgCreateQuota != null" >
+        #{orgCreateQuota,jdbcType=INTEGER},
+      </if>
+      <if test="orgJoinQuota != null" >
+        #{orgJoinQuota,jdbcType=INTEGER},
+      </if>
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarUrl != null" >
+        #{avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatName != null" >
+        #{wechatName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="zhouxu.site.dockerenv.pojo.UserExample" resultType="java.lang.Integer" >
+    select count(*) from sys_m_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_m_user
+    <set >
+      <if test="record.userSid != null" >
+        user_sid = #{record.userSid,jdbcType=BIGINT},
+      </if>
+      <if test="record.userType != null" >
+        user_type = #{record.userType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userCode != null" >
+        user_code = #{record.userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.account != null" >
+        account = #{record.account,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password64 != null" >
+        password64 = #{record.password64,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realName != null" >
+        real_name = #{record.realName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=INTEGER},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyId != null" >
+        company_id = #{record.companyId,jdbcType=BIGINT},
+      </if>
+      <if test="record.projectId != null" >
+        project_id = #{record.projectId,jdbcType=BIGINT},
+      </if>
+      <if test="record.orgSid != null" >
+        org_sid = #{record.orgSid,jdbcType=BIGINT},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.errorCount != null" >
+        error_count = #{record.errorCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastLoginTime != null" >
+        last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastLoginIp != null" >
+        last_login_ip = #{record.lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceLimitQuantity != null" >
+        service_limit_quantity = #{record.serviceLimitQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.applyReason != null" >
+        apply_reason = #{record.applyReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.smsMax != null" >
+        sms_max = #{record.smsMax,jdbcType=INTEGER},
+      </if>
+      <if test="record.uuid != null" >
+        uuid = #{record.uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skinTheme != null" >
+        skin_theme = #{record.skinTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authId != null" >
+        auth_id = #{record.authId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authType != null" >
+        auth_type = #{record.authType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdBy != null" >
+        created_by = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdDt != null" >
+        created_dt = #{record.createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedBy != null" >
+        updated_by = #{record.updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedDt != null" >
+        updated_dt = #{record.updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.version != null" >
+        version = #{record.version,jdbcType=BIGINT},
+      </if>
+      <if test="record.orgCreateQuota != null" >
+        org_create_quota = #{record.orgCreateQuota,jdbcType=INTEGER},
+      </if>
+      <if test="record.orgJoinQuota != null" >
+        org_join_quota = #{record.orgJoinQuota,jdbcType=INTEGER},
+      </if>
+      <if test="record.openId != null" >
+        open_id = #{record.openId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.avatarUrl != null" >
+        avatar_url = #{record.avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null" >
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.country != null" >
+        country = #{record.country,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wechatName != null" >
+        wechat_name = #{record.wechatName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_m_user
+    set user_sid = #{record.userSid,jdbcType=BIGINT},
+      user_type = #{record.userType,jdbcType=VARCHAR},
+      user_code = #{record.userCode,jdbcType=VARCHAR},
+      account = #{record.account,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      password64 = #{record.password64,jdbcType=VARCHAR},
+      real_name = #{record.realName,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=INTEGER},
+      email = #{record.email,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      company_id = #{record.companyId,jdbcType=BIGINT},
+      project_id = #{record.projectId,jdbcType=BIGINT},
+      org_sid = #{record.orgSid,jdbcType=BIGINT},
+      status = #{record.status,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      error_count = #{record.errorCount,jdbcType=INTEGER},
+      last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      last_login_ip = #{record.lastLoginIp,jdbcType=VARCHAR},
+      service_limit_quantity = #{record.serviceLimitQuantity,jdbcType=INTEGER},
+      apply_reason = #{record.applyReason,jdbcType=VARCHAR},
+      sms_max = #{record.smsMax,jdbcType=INTEGER},
+      uuid = #{record.uuid,jdbcType=VARCHAR},
+      skin_theme = #{record.skinTheme,jdbcType=VARCHAR},
+      auth_id = #{record.authId,jdbcType=VARCHAR},
+      auth_type = #{record.authType,jdbcType=VARCHAR},
+      created_by = #{record.createdBy,jdbcType=VARCHAR},
+      created_dt = #{record.createdDt,jdbcType=TIMESTAMP},
+      updated_by = #{record.updatedBy,jdbcType=VARCHAR},
+      updated_dt = #{record.updatedDt,jdbcType=TIMESTAMP},
+      version = #{record.version,jdbcType=BIGINT},
+      org_create_quota = #{record.orgCreateQuota,jdbcType=INTEGER},
+      org_join_quota = #{record.orgJoinQuota,jdbcType=INTEGER},
+      open_id = #{record.openId,jdbcType=VARCHAR},
+      avatar_url = #{record.avatarUrl,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      country = #{record.country,jdbcType=VARCHAR},
+      wechat_name = #{record.wechatName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="zhouxu.site.dockerenv.pojo.User" >
+    update sys_m_user
+    <set >
+      <if test="userType != null" >
+        user_type = #{userType,jdbcType=VARCHAR},
+      </if>
+      <if test="userCode != null" >
+        user_code = #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null" >
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="password64 != null" >
+        password64 = #{password64,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="projectId != null" >
+        project_id = #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="orgSid != null" >
+        org_sid = #{orgSid,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="errorCount != null" >
+        error_count = #{errorCount,jdbcType=INTEGER},
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginIp != null" >
+        last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceLimitQuantity != null" >
+        service_limit_quantity = #{serviceLimitQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="applyReason != null" >
+        apply_reason = #{applyReason,jdbcType=VARCHAR},
+      </if>
+      <if test="smsMax != null" >
+        sms_max = #{smsMax,jdbcType=INTEGER},
+      </if>
+      <if test="uuid != null" >
+        uuid = #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="skinTheme != null" >
+        skin_theme = #{skinTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="authId != null" >
+        auth_id = #{authId,jdbcType=VARCHAR},
+      </if>
+      <if test="authType != null" >
+        auth_type = #{authType,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        created_dt = #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        updated_dt = #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=BIGINT},
+      </if>
+      <if test="orgCreateQuota != null" >
+        org_create_quota = #{orgCreateQuota,jdbcType=INTEGER},
+      </if>
+      <if test="orgJoinQuota != null" >
+        org_join_quota = #{orgJoinQuota,jdbcType=INTEGER},
+      </if>
+      <if test="openId != null" >
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarUrl != null" >
+        avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatName != null" >
+        wechat_name = #{wechatName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_sid = #{userSid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="zhouxu.site.dockerenv.pojo.User" >
+    update sys_m_user
+    set user_type = #{userType,jdbcType=VARCHAR},
+      user_code = #{userCode,jdbcType=VARCHAR},
+      account = #{account,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      password64 = #{password64,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      email = #{email,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=BIGINT},
+      project_id = #{projectId,jdbcType=BIGINT},
+      org_sid = #{orgSid,jdbcType=BIGINT},
+      status = #{status,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      error_count = #{errorCount,jdbcType=INTEGER},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
+      service_limit_quantity = #{serviceLimitQuantity,jdbcType=INTEGER},
+      apply_reason = #{applyReason,jdbcType=VARCHAR},
+      sms_max = #{smsMax,jdbcType=INTEGER},
+      uuid = #{uuid,jdbcType=VARCHAR},
+      skin_theme = #{skinTheme,jdbcType=VARCHAR},
+      auth_id = #{authId,jdbcType=VARCHAR},
+      auth_type = #{authType,jdbcType=VARCHAR},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      created_dt = #{createdDt,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=VARCHAR},
+      updated_dt = #{updatedDt,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=BIGINT},
+      org_create_quota = #{orgCreateQuota,jdbcType=INTEGER},
+      org_join_quota = #{orgJoinQuota,jdbcType=INTEGER},
+      open_id = #{openId,jdbcType=VARCHAR},
+      avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      wechat_name = #{wechatName,jdbcType=VARCHAR}
+    where user_sid = #{userSid,jdbcType=BIGINT}
+  </update>
+</mapper>

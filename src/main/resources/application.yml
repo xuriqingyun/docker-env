@@ -1,0 +1,15 @@
+server:
+  port: 8082
+db:
+  host: localhost
+  port: 3306
+  username: root
+  password: root
+
+spring:
+  datasource:
+    password: ${db.password}
+    url: jdbc:mysql://${db.host}:${db.port}/rightcloud_autoops?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
+    username: ${db.username}
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
