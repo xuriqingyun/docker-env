@@ -27,10 +27,6 @@ spring:
     maxPoolPreparedStatementPerConnectionSize: 20
     useGlobalDataSourceStat: true
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
-  rabbitmq:
-    username: ${mq.username}
-    password: ${mq.password}
-    host: ${mq.host}
   profiles:
     active: test
 #logging:
