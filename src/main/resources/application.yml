@@ -7,8 +7,6 @@ spring:
     username: ${db.username}
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-    #下半区属性对应的是 com.alibaba.druid.pool.DruidDataSource 中的属性，Spring Boot 默认是不注入不了这些属性值的，需要自己绑定
-    #druid 数据源专有配置
     initialSize: 5
     minIdle: 5
     maxActive: 20
@@ -20,9 +18,6 @@ spring:
     testOnBorrow: false
     testOnReturn: false
     poolPreparedStatements: true
-    #配置监控统计拦截的filters，stat:监控统计、log4j：日志记录、wall：防御sql注入
-    #如果允许时报错  java.lang.ClassNotFoundException: org.apache.log4j.Priority
-    #则导入 log4j 依赖即可，Maven 地址： https://mvnrepository.com/artifact/log4j/log4j
     filters: stat,wall,log4j
     maxPoolPreparedStatementPerConnectionSize: 20
     useGlobalDataSourceStat: true
@@ -31,8 +26,16 @@ spring:
     username: ${mq.username}
     password: ${mq.password}
     host: ${mq.host}
+    port: ${mq.port}
+    listener:
+      simple:
+        concurrency: 5
+        max-concurrency: 10
+        acknowledge-mode: manual
+        prefetch: 1
+
   profiles:
-    active: test
+    active: dev
 #logging:
 #  level:
 #    web: trace

@@ -1,5 +1,5 @@
 env:
-  test
+  dev
 db:
   host: localhost
   port: 3306
@@ -8,4 +8,5 @@ db:
 mq:
   username: guest
   password: guest
-  host: local
+  host: localhost
+  port: 5672
