@@ -1,0 +1,11 @@
+env:
+  prod
+db:
+  host: localhost
+  port: 3306
+  username: root
+  password: root
+mq:
+  username: guest
+  password: guest
+  host: local
